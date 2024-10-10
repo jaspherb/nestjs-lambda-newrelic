@@ -1,0 +1,16 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  localstack:
+    image: localstack/localstack:latest
+    container_name: email-service-poc-ls
+    ports:
+      - "4566:4566"  # LocalStack main endpoint
+      - "4571:4571"  # Lambda endpoint
+    environment:
+      - SERVICES=sqs,lambda,ses
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+    volumes:
+      - ./localstack:/tmp/localstack
